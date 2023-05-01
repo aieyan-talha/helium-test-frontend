@@ -1,21 +1,21 @@
 import React, { Suspense, useEffect, useState } from "react";
 import {
-  Navbar,
-  Nav,
   Container,
   Button,
   Table,
   Spinner,
+  Toast,
+  ToastContainer,
 } from "react-bootstrap";
 import { useAuthContext } from "../hooks/use-auth";
 import { Navigation, Star } from "../components";
 import axios from "axios";
-import { lorenIpsum } from "../utils";
 
 export const Landing = () => {
   const { userData } = useAuthContext();
   const [data, setData] = useState([]);
   const [starredExercises, setStarredExercise] = useState([]);
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
 
   const getExerciseData = async () => {
     const options = {
@@ -35,7 +35,15 @@ export const Landing = () => {
   };
 
   const handleStarClick = (exerciseName) => {
-    setStarredExercise((prevData) => [...prevData, exerciseName]);
+    const alreadyExists = starredExercises?.includes(exerciseName);
+
+    setStarredExercise((prevData) => {
+      if (alreadyExists) {
+        return prevData.filter((item) => item !== exerciseName);
+      } else {
+        return [...prevData, exerciseName];
+      }
+    });
   };
 
   const saveUserExercises = async () => {
@@ -45,9 +53,8 @@ export const Landing = () => {
         exercises: starredExercises,
       };
 
-      console.log("!DATA SAVING ", data);
-
       await axios.post("/api/exercises/save-exercises", data);
+      setShowSuccessToast(true);
     } catch (err) {
       throw new Error(err);
     }
@@ -74,7 +81,7 @@ export const Landing = () => {
   useEffect(() => {
     if (userData?.id) {
       getUserExercises(userData.id).then((exerciseData) => {
-        setStarredExercise(exerciseData?.data?.starredExercises);
+        setStarredExercise(exerciseData?.data?.starredExercises ?? []);
       });
     }
   }, [userData?.id]);
@@ -113,7 +120,7 @@ export const Landing = () => {
                       <Star
                         name={exercise}
                         onClick={handleStarClick}
-                        isChecked={starredExercises.includes(exercise)}
+                        isChecked={starredExercises?.includes(exercise)}
                       />
                     </td>
                   </tr>
@@ -128,6 +135,22 @@ export const Landing = () => {
           </Button>
         </Container>
       </Suspense>
+      {/**This should be moved to a separate component */}
+      <ToastContainer position="top-start" className="basic-padding">
+        <Toast
+          onClose={() => setShowSuccessToast(false)}
+          show={showSuccessToast}
+          bg="success"
+          delay={2000}
+          autohide
+        >
+          <Toast.Header>
+            <strong className="me-auto">Success</strong>
+            <small>{Date.now}</small>
+          </Toast.Header>
+          <Toast.Body>Exercise data saved successfully</Toast.Body>
+        </Toast>
+      </ToastContainer>
     </div>
   );
 };
