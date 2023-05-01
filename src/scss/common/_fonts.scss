@@ -1,0 +1,29 @@
+$main-font-stack: "Cambria";
+
+%font-shared {
+  font-family: $main-font-stack;
+}
+
+.title-heading {
+  @extend %font-shared;
+  font-size: 50px;
+  color: yellow;
+}
+
+.title-pretext {
+  @extend %font-shared;
+  font-size: 20px;
+  color: white;
+}
+
+.subtitle-heading {
+  @extend %font-shared;
+  font-size: 15px;
+  color: white;
+}
+
+.title-secondary {
+  @extend %font-shared;
+  color: white;
+  font-size: 40px;
+}

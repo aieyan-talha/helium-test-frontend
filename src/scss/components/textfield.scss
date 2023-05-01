@@ -1,0 +1,14 @@
+@use "../common/fonts";
+@use "../common/colors";
+
+.textfield-container {
+  .form-label {
+    @extend %font-shared;
+    color: white;
+  }
+
+  .form-control {
+    background-color: colors.$steel-grey;
+    border: none;
+  }
+}

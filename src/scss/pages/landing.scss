@@ -1,0 +1,60 @@
+@use "../common/colors";
+@use "../common/fonts";
+
+.navbar-grey {
+  background-color: colors.$charcoal-grey-light;
+}
+
+.navbar-brand-font {
+  color: yellow;
+  font-family: fonts.$main-font-stack;
+}
+
+.navbar-brand-font:hover {
+  color: greenyellow;
+}
+
+.navbar-text {
+  color: white;
+  font-family: fonts.$main-font-stack;
+}
+
+.navbar-link {
+  @extend .navbar-text;
+}
+
+.navbar-link:hover {
+  color: grey;
+}
+
+.navbar-username {
+  color: greenyellow;
+  font-family: fonts.$main-font-stack;
+  margin: 0px 20px;
+}
+
+.center-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.save-button {
+  background-color: green;
+  border: none;
+  width: 100%;
+  font-family: fonts.$main-font-stack;
+
+  .btn-primary {
+    background-color: green !important;
+  }
+}
+
+.save-button:hover {
+  background-color: yellowgreen;
+}
+
+.save-button:active {
+  background-color: green !important;
+}

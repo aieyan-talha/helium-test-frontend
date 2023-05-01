@@ -1,0 +1,54 @@
+@use "../common/_colors";
+@use "../common/fonts";
+
+.custom-button {
+  background-color: colors.$button-primary-color;
+  height: 30px;
+  width: 70px;
+}
+
+.body-background {
+  background: colors.$charcoal-grey;
+  height: 100%;
+}
+
+.vertical-center {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.three-four-container {
+  width: 75%;
+}
+
+.card-background {
+  background-color: colors.$charcoal-grey-light;
+}
+
+.login-button {
+  margin-top: 20px;
+  background-color: green;
+  border: none;
+  width: 100%;
+  font-family: fonts.$main-font-stack;
+
+  .btn-primary {
+    background-color: green !important;
+  }
+}
+
+.login-button:hover {
+  background-color: yellowgreen;
+}
+
+.login-button:active {
+  background-color: green !important;
+}
+
+.register-button {
+  font-family: fonts.$main-font-stack;
+  border: none;
+  width: 100%;
+}
